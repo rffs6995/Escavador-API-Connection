@@ -1,4 +1,4 @@
-# Escavador Processes
+# Escavador Cases
 
 This repository contains a Python script to fetch legal processes for a company using the Escavador API and save the details into a CSV file.
 
