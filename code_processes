@@ -1,0 +1,41 @@
+# Escavador API Key
+ESCAVADOR_API_KEY="YOUR_TOKEN"
+
+import csv
+import escavador
+
+# API Configuration
+escavador.config(ESCAVADOR_API_KEY)
+
+from escavador.v2 import Processo
+
+# Opening the CSV file for writing
+with open('processes.csv', mode='w', newline='', encoding='ansi') as file:
+    writer = csv.writer(file)
+    # Writing the CSV header
+    writer.writerow(['CNPJ', 'Company Name', 'CNJ Number', 'Source', 'Start Date', 'Last Movement'])
+
+    # Initial API call
+    involved, processes = Processo.por_cnpj(cnpj="79840701215")
+
+    print(f"Processes for the company {involved.name}:")
+
+    while processes:
+        for process in processes:
+            print(f"{process.numero_cnj}:")
+            print(f"Source: {process.fontes[0].nome}")
+            print(f"Start date: {process.data_inicio}")
+            print(f"Last movement: {process.data_ultima_movimentacao}")
+
+            # Writing the process data to the CSV file
+            writer.writerow([
+                "60746948000112",  # Example CNPJ
+                involved.nome, 
+                process.numero_cnj, 
+                process.fontes[0].nome, 
+                process.data_inicio, 
+                process.data_ultima_movimentacao
+            ])
+
+        # Pagination call via cursor in the API
+        processes = processes.continuar_busca()
