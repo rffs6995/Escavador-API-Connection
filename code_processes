@@ -16,7 +16,7 @@ with open('processes.csv', mode='w', newline='', encoding='ansi') as file:
     writer.writerow(['CNPJ', 'Company Name', 'CNJ Number', 'Source', 'Start Date', 'Last Movement'])
 
     # Initial API call
-    involved, processes = Processo.por_cnpj(cnpj="79840701215")
+    involved, processes = Processo.por_cnpj(cnpj="-------")
 
     print(f"Processes for the company {involved.name}:")
 
@@ -29,7 +29,7 @@ with open('processes.csv', mode='w', newline='', encoding='ansi') as file:
 
             # Writing the process data to the CSV file
             writer.writerow([
-                "60746948000112",  # Example CNPJ
+                "---------",  # Example CNPJ
                 involved.nome, 
                 process.numero_cnj, 
                 process.fontes[0].nome, 
